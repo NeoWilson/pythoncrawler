@@ -1,0 +1,17 @@
+import sys # Used to add the BeautifulSoup folder the import path
+import urllib2 # Used to read the html document
+
+if __name__ == "__main__":
+    
+    from bs4 import BeautifulSoup
+
+    opener = urllib2.build_opener()
+    opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+
+    for start in range(0,10):
+        url = "http://www.google.com/search?q=site:stackoverflow.com&start=" + str(start*10)
+        page = opener.open(url)
+        soup = BeautifulSoup(page)
+
+        for cite in soup.findAll('cite'):
+            print cite.text
